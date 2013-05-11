@@ -45,6 +45,11 @@ public class RedisLayerImpl<T> extends CacheLayer<T> {
     protected static JedisPool jedisPool = null;
 
     /**
+     * The jedis client
+     */
+    private Jedis jedis = null;
+
+    /**
      * The cache layer constants
      */
     private static final String KEY_SEPARATOR = ":";
@@ -292,8 +297,11 @@ public class RedisLayerImpl<T> extends CacheLayer<T> {
 	return new JedisPool(master.getHostString(), master.getPort());
     }
 
-    private Jedis jedis() {
-	return jedisPool.getResource();
+    public Jedis jedis() {
+	if (jedis == null) {
+	    jedis = jedisPool.getResource();
+	}
+	return jedis;
     }
 
     /**
