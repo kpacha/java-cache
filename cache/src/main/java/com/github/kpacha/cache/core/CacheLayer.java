@@ -4,7 +4,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.Future;
 
 /**
  * The generic cache layer manager.
@@ -109,7 +108,7 @@ public abstract class CacheLayer<T> {
      * @param value
      * @return
      */
-    public abstract Future<Boolean> set(String key, Object value);
+    public abstract void set(String key, Object value);
 
     /**
      * Setter (adds and updates) by key, value and ttl.
@@ -119,7 +118,7 @@ public abstract class CacheLayer<T> {
      * @param value
      * @return
      */
-    public abstract Future<Boolean> set(String key, int ttl, Object value);
+    public abstract void set(String key, int ttl, Object value);
 
     /**
      * Store the received object indexed as all with the default ttl
@@ -127,14 +126,14 @@ public abstract class CacheLayer<T> {
      * @param value
      * @return
      */
-    public abstract Future<Boolean> setAll(Object value);
+    public abstract void setAll(Object value);
 
     /**
      * Delete the related collection
      * 
      * @return
      */
-    public abstract Future<Boolean> deleteAll();
+    public abstract void deleteAll();
 
     /**
      * Delete the key from the cache
@@ -142,7 +141,7 @@ public abstract class CacheLayer<T> {
      * @param key
      * @return
      */
-    public abstract Future<Boolean> delete(String key);
+    public abstract void delete(String key);
 
     /**
      * Checks if the cache key is locked

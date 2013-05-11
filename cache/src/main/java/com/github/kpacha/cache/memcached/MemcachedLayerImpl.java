@@ -198,11 +198,10 @@ public class MemcachedLayerImpl<T> extends CacheLayer<T> {
      * 
      * @param key
      * @param value
-     * @return
      */
-    public Future<Boolean> set(final String key, final Object value) {
+    public void set(final String key, final Object value) {
 	this.delete(ALL_KEY);
-	return memcached.set(this.normalizeKey(key), ttl, value);
+	memcached.set(this.normalizeKey(key), ttl, value);
     }
 
     /**
@@ -211,51 +210,45 @@ public class MemcachedLayerImpl<T> extends CacheLayer<T> {
      * @param key
      * @param ttl
      * @param value
-     * @return
      */
-    public Future<Boolean> set(final String key, final int ttl,
-	    final Object value) {
+    public void set(final String key, final int ttl, final Object value) {
 	this.delete(ALL_KEY);
 	this.unlock(key);
-	return memcached.set(this.normalizeKey(key), ttl, value);
+	memcached.set(this.normalizeKey(key), ttl, value);
     }
 
     /**
      * Store the received object indexed as all
      * 
      * @param value
-     * @return
      */
-    public Future<Boolean> setAll(final Object value) {
-	return memcached.set(this.normalizeKey(ALL_KEY), ttl, value);
+    public void setAll(final Object value) {
+	memcached.set(this.normalizeKey(ALL_KEY), ttl, value);
     }
 
     /**
      * Delete the related collection
-     * 
-     * @return
      */
-    public Future<Boolean> deleteAll() {
+    public void deleteAll() {
 	final Set<String> keys = memcached.selectKeys(this.normalizeKey("")
 		+ WILDCARD);
 	for (final String key : keys) {
 	    this.delete(key);
 	}
 	deleteAggregated();
-	return this.delete(ALL_KEY);
+	this.delete(ALL_KEY);
     }
 
     /**
      * Simple memcached delete wrapper
      * 
      * @param key
-     * @return
      */
-    public Future<Boolean> delete(final String key) {
+    public void delete(final String key) {
 	if (!key.equalsIgnoreCase(ALL_KEY)) {
 	    this.delete(ALL_KEY);
 	}
-	return memcached.delete(this.normalizeKey(key));
+	memcached.delete(this.normalizeKey(key));
     }
 
     /**
