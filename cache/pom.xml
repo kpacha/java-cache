@@ -8,15 +8,20 @@
 	<properties>
 		<memcachedServerPort>11211</memcachedServerPort>
 		<memcachedServerIP>127.0.0.1</memcachedServerIP>
-		
+
 		<spymemcached.version>2.8.1</spymemcached.version>
+		<jackson-mapper.version>1.9.12</jackson-mapper.version>
 		<junit.version>4.10</junit.version>
 		<maven-surefire-plugin.version>2.12.4</maven-surefire-plugin.version>
 		<maven-compiler-plugin.version>2.3.2</maven-compiler-plugin.version>
-		
+
 		<jdk.version>1.6</jdk.version>
 	</properties>
 	<repositories>
+		<repository>
+			<id>codehaus</id>
+			<url>http://repository.codehaus.org/org/codehaus</url>
+		</repository>
 		<repository>
 			<id>spy</id>
 			<name>Spy Repository</name>
@@ -37,6 +42,11 @@
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>${junit.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-mapper-asl</artifactId>
+			<version>${jackson-mapper.version}</version>
 		</dependency>
 	</dependencies>
 	<build>
