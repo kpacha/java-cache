@@ -54,26 +54,18 @@ public class TestRedisLayerImpl extends Config {
 	redis.set("Atest5", 600, test5);
 	redis.set("Btest6", 600, test6);
 
-	redis.lock("test1");
-	// redis.set(Mutex.MUTEX_KEY_PREFIX
-	// + ExtendedMemcachedClient.KEY_SEPARATOR + "test2", 600, true);
-	// redis.add(Mutex.MUTEX_KEY_PREFIX
-	// + ExtendedMemcachedClient.KEY_SEPARATOR + "test3", 600, false);
     }
 
     @After
     public void tearDown() throws Exception {
 	jedis.flushAll();
 	jedis.disconnect();
-    }
-
-    @Test
-    public final void testGetKeys() {
-	Assert.assertEquals(7, jedis.keys("*").size());
+	jedis = null;
     }
 
     @Test
     public final void testIsLocked() {
+	redis.lock("test1");
 	Assert.assertTrue(redis.isLocked("test1"));
 	Assert.assertTrue(!redis.isLocked("test2"));
 	Assert.assertTrue(!redis.isLocked("test3"));
@@ -93,13 +85,10 @@ public class TestRedisLayerImpl extends Config {
 
     @Test
     public final void testUnlock() {
+	redis.lock("test1");
 	Assert.assertTrue(redis.isLocked("test1"));
 	redis.unlock("test1");
 	Assert.assertTrue(!redis.isLocked("test1"));
-
-	// Assert.assertTrue(redis.isLocked("test2"));
-	// redis.unlock("test2");
-	// Assert.assertTrue(!redis.isLocked("test2"));
     }
 
 }
